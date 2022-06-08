@@ -10,13 +10,13 @@ export const IncomeExpenses = ({ transactions }) => {
         return transaction;
     })
     return <div className="inc-exp-container">
-        <div className="income-container">
+        <div className="amount-container">
             <h4>income</h4>
-            <p className="money plus">+${income.toFixed(2)}</p>
+            <div className="money plus">+${income.toFixed(2)}</div>
         </div>
-        <div className="expense-container">
+        <div className="amount-container">
             <h4>expense</h4>
-            <p className="money minus">-${Math.abs(expense).toFixed(2)}</p>
+            <div className="money minus">-${Math.abs(expense).toFixed(2)}</div>
         </div>
     </div>
 }
