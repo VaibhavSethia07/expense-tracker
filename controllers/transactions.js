@@ -20,7 +20,7 @@ exports.getTransactions = async (_req, res, _next) => {
 }
 
 // @desc    Add a transaction
-// @route   POST /api/v1/transaction
+// @route   POST /api/v1/transactions
 // @access  public
 exports.addTransaction = async (req, res, _next) => {
     try {
@@ -50,13 +50,12 @@ exports.addTransaction = async (req, res, _next) => {
 }
 
 // @desc    Delete a transaction
-// @route   /api/v1/transaction/:id
+// @route   /api/v1/transactions/:id
 // @access  public
 exports.deleteTransaction = async (req, res, _next) => {
     try {
-        const id = req.params.id;
-        const transaction = await Transaction.findById(id);
-
+        const _id = req.params.id;
+        const transaction = await Transaction.findById(_id);
         if (!transaction) {
             return res.status(404).json({
                 success: false,

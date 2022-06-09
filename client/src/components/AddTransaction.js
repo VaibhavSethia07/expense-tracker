@@ -1,19 +1,40 @@
 import React, { useState } from 'react';
-import { v4 as uuidv4 } from 'uuid';
+
 
 export const AddTransaction = ({ transactions, setTransactions }) => {
     const [text, setText] = useState('');
     const [amount, setAmount] = useState('');
+    const url = '/api/v1/transactions';
 
+    const postTransaction = async (url, transaction) => {
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(transaction)
+        })
+
+        return await response.json();
+    }
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        const newTransaction = { id: uuidv4(), text, amount: Number(amount) };
+        let newTransaction = { text, amount: Number(amount) };
+
+        try {
+            postTransaction(url, newTransaction)
+                .then(response => {
+                    newTransaction._id = response.data._id;
+                });
+        } catch (error) {
+            console.log(error);
+        }
         setTransactions([...transactions, newTransaction]);
 
         setText('');
-        setAmount(0);
+        setAmount('');
     }
 
     return <div className="add-transaction-container">

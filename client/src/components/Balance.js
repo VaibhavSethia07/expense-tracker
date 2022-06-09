@@ -1,4 +1,5 @@
 import React from 'react';
+import { numberWithCommas } from '../utils/numberWithCommas';
 
 export const Balance = ({ transactions }) => {
     let balance = 0.00;
@@ -8,6 +9,6 @@ export const Balance = ({ transactions }) => {
     })
     return <div className="balance-container">
         <div className="balance-text">Your Balance</div>
-        <div className="balance">${balance.toFixed(2)}</div>
+        <div className="balance">${numberWithCommas(balance.toFixed(2))}</div>
     </div>
 }
