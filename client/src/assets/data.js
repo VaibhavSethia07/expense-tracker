@@ -5,4 +5,4 @@ const transaction = [
     { id: '610c18df-09b7-4e9f-a17e-b5a6c26347a7', text: 'Camera', amount: 150 }
 ]
 
-module.exports = transaction;
+export default transaction;

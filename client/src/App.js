@@ -4,20 +4,35 @@ import { Balance } from './components/Balance';
 import { IncomeExpenses } from './components/IncomeExpenses';
 import { TransactionList } from './components/TransactionList';
 import { AddTransaction } from './components/AddTransaction';
-import { getTransactions } from './api/transactions';
 import data from './assets/data'
+
 import { useState, useEffect } from 'react';
 
 function App() {
   const [transactions, setTransactions] = useState(data);
-  // console.log(getTransactions());
+
   // Since getTransactions is an asynchronous call, we call it inside useEffect()
-
   useEffect(() => {
-    setTransactions(getTransactions());
-  }, [])
+    const url = '/api/v1/transactions';
+    const getFormattedData = async (url) => {
 
-  // console.log(transactions());
+      try {
+        const resp = await fetch(url);
+        const jsonData = await resp.json();
+        console.log(jsonData);
+        const reqdData = await jsonData.data;
+
+        return reqdData;
+
+      } catch (err) {
+        console.log(err)
+      }
+
+      getFormattedData(url);
+    };
+
+  }, [transactions]);
+
   return (
 
     <div className="container">
