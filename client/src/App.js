@@ -4,11 +4,20 @@ import { Balance } from './components/Balance';
 import { IncomeExpenses } from './components/IncomeExpenses';
 import { TransactionList } from './components/TransactionList';
 import { AddTransaction } from './components/AddTransaction';
-import data from './assets/data';
-import { useState } from 'react';
+import { getTransactions } from './api/transactions';
+import data from './assets/data'
+import { useState, useEffect } from 'react';
 
 function App() {
   const [transactions, setTransactions] = useState(data);
+  // console.log(getTransactions());
+  // Since getTransactions is an asynchronous call, we call it inside useEffect()
+
+  useEffect(() => {
+    setTransactions(getTransactions());
+  }, [])
+
+  // console.log(transactions());
   return (
 
     <div className="container">
