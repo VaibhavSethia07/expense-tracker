@@ -3,8 +3,10 @@ import React, { useState } from 'react';
 
 export const AddTransaction = ({ transactions, setTransactions }) => {
     const [text, setText] = useState('');
-    const [amount, setAmount] = useState('');
+    const [amount, setAmount] = useState(0);
     const url = '/api/v1/transactions';
+
+    console.log(text, amount);
 
     const postTransaction = async (url, transaction) => {
         const response = await fetch(url, {
@@ -18,8 +20,13 @@ export const AddTransaction = ({ transactions, setTransactions }) => {
         return await response.json();
     }
 
+
     const handleSubmit = (e) => {
         e.preventDefault();
+        if (isNaN(Number(amount))) {
+            alert('Please enter a numeric value for amount');
+            return;
+        }
 
         let newTransaction = { text, amount: Number(amount) };
 
@@ -34,7 +41,7 @@ export const AddTransaction = ({ transactions, setTransactions }) => {
         setTransactions([...transactions, newTransaction]);
 
         setText('');
-        setAmount('');
+        setAmount(0);
     }
 
     return <div className="add-transaction-container">
@@ -50,7 +57,7 @@ export const AddTransaction = ({ transactions, setTransactions }) => {
             <div className="form-control">
                 <label htmlFor="amount">Amount<br />(negative-expense, positive-income)</label>
                 <br />
-                <input type="text" id="amount" name="amount" value={amount} onChange={(e) => {
+                <input type="number" id="amount" name="amount" value={amount} onChange={(e) => {
                     setAmount(e.target.value);
                 }} placeholder='Enter amount...' required />
             </div>

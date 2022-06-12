@@ -34,7 +34,7 @@ exports.addTransaction = async (req, res, _next) => {
 
     } catch (error) {
         if (error.name === 'ValidationError') {
-            const messages = Object.values(err.errors).map(val => val.messages);
+            const messages = Object.values(error.errors).map(val => val.messages);
             // Client side error
             return res.status(400).json({
                 success: false,
