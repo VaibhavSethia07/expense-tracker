@@ -59,7 +59,7 @@ export const AddTransaction = ({ transactions, setTransactions }) => {
                 <br />
                 <input type="number" id="amount" name="amount" value={amount} onChange={(e) => {
                     setAmount(e.target.value);
-                }} placeholder='Enter amount...' required />
+                }} required />
             </div>
             <button type="submit">Add Transaction</button>
         </form >
