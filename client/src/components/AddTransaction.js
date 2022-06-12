@@ -6,8 +6,6 @@ export const AddTransaction = ({ transactions, setTransactions }) => {
     const [amount, setAmount] = useState(0);
     const url = '/api/v1/transactions';
 
-    console.log(text, amount);
-
     const postTransaction = async (url, transaction) => {
         const response = await fetch(url, {
             method: 'POST',
