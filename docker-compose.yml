@@ -1,0 +1,57 @@
+services:
+  frontend:
+    build:
+      context: client
+      target: development
+    ports:
+      - 3000:3000
+    stdin_open: true
+    volumes:
+      - ./client:/usr/src/app
+      - /usr/src/app/node_modules
+    restart: always
+    networks:
+      - expense-tracker-network
+    depends_on:
+      - backend
+
+  backend:
+    build:
+      context: .
+      target: development
+    volumes:
+      - ./:/usr/src/app
+      - /usr/src/app/node_modules
+    restart: always
+    networks:
+      - expense-tracker-network
+    ports:
+      - 8080:8080
+
+
+  prometheus:
+    restart: always
+    image: prom/prometheus:latest
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    networks:
+      - expense-tracker-network
+    ports:
+      - 9090:9090
+    depends_on:
+      - backend
+
+  grafana:
+    restart: always
+    image: grafana/grafana:latest
+    volumes:
+      - ./data:/data/grafana
+    networks:
+      - expense-tracker-network
+    depends_on:
+      - backend
+    ports:
+      - 3001:3000
+
+networks:
+  expense-tracker-network:
