@@ -11,5 +11,9 @@ scrape_configs:
     scrape_interval: 5s
     static_configs:
       - targets: ['expense-tracker-dev-env-prometheus-1:9090']
+  - job_name: 'grafana'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['expense-tracker-dev-env-grafana-1:3000']
   
     
